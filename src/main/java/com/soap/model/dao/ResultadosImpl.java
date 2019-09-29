@@ -5,7 +5,9 @@
  */
 package com.soap.model.dao;
 
-import com.soap.model.entities.Operaciones;
+import com.soap.model.crudService.CrudService;
+import com.soap.model.servicesDao.IResultadosService;
+import com.soap.model.entities.Resultados;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author Carlos Fernando
  */
 @Stateless
-public class OperacionesFacade extends AbstractFacade<Operaciones> implements OperacionesFacadeLocal {
+public class ResultadosImpl extends CrudService<Resultados> implements IResultadosService {
 
     @PersistenceContext(unitName = "com.zeus.app_PruebaWebServiceSOAP_war_1.0PU")
     private EntityManager em;
@@ -25,8 +27,8 @@ public class OperacionesFacade extends AbstractFacade<Operaciones> implements Op
         return em;
     }
 
-    public OperacionesFacade() {
-        super(Operaciones.class);
+    public ResultadosImpl() {
+        super(Resultados.class);
     }
     
 }

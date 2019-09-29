@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soap.model.dao;
+package com.soap.model.crudService;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -12,11 +12,11 @@ import javax.persistence.EntityManager;
  *
  * @author Carlos Fernando
  */
-public abstract class AbstractFacade<T> {
+public abstract class CrudService<T> {
 
     private Class<T> entityClass;
 
-    public AbstractFacade(Class<T> entityClass) {
+    public CrudService(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
