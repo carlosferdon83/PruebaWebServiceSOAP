@@ -3,27 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soap.model.crudService;
+package com.soap.model.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
  * @author Carlos Fernando
  */
-public abstract class CrudService<T> {
+public abstract class AbstractFacade<T> {
 
     private Class<T> entityClass;
 
-    public CrudService(Class<T> entityClass) {
+    public AbstractFacade(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        try{
+            getEntityManager().persist(entity);
+            getEntityManager().flush();
+        }catch(ConstraintViolationException ex){
+            throw new PersistenceException("No se puede persistir la entidad: " + entity + " error " +ex.getMessage());
+        }catch(PersistenceException ex){
+            throw new PersistenceException("Un error ha ocurrido desde el abstract facade: " + entity, ex);
+        }
+        
     }
 
     public void edit(T entity) {

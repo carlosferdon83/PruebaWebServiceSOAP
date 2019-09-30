@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soap.business.operaciones;
+package com.soap.business.transacciones;
 
+import com.soap.model.entities.Operaciones;
+import com.soap.model.entities.Resultados;
 import java.util.List;
 import javax.ejb.Local;
-import com.soap.model.entities.Operaciones;
 
 /**
  *
@@ -17,5 +18,5 @@ import com.soap.model.entities.Operaciones;
 public interface TransaccionesLocal {
     
     public List<Operaciones> listaOperaciones();
-    
+    public void insertarResultados(Resultados resultados);
 }

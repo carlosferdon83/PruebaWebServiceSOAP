@@ -8,26 +8,37 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <br></br>
-        <p:panel header="Calculadora">
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Primer Numero"/>
-                <p:inputText/>
-                <h:outputLabel value="Segundo Numero"/>
-                <h:inputText/>
-                <h:outputLabel value="Operacion"/>
-                <p:inputText/>
-            </h:panelGrid>
-            <f:facet name="footer">
-                <p:commandButton value="Calcular"/> 
-            </f:facet>
-        </p:panel>
-        <p:panel header="Resultado">
-            <h:panelGrid columns="2">
-                <h:outputLabel value="Resultado"/>
-                <p:inputText/>
-            </h:panelGrid>
-        </p:panel>
+        <h:form>
+            <p:growl id="growl" showDetail="true"/>
+            <br></br>
+            <div align="center">
+                <p:panel header="Calculadora" style="width:650px;">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Primer Numero" for="numero1"/>
+                        <p:inputText value="#{calculadoraController.resultados.operando1}" id="numero1" required="true" validatorMessage="Numero 1 requerido"/>
+                        <h:outputLabel value="Segundo Numero" for="numero2"/>
+                        <h:inputText value="#{calculadoraController.resultados.operando2}" id="numero2" required="true" validatorMessage="Numero 2 requerido"/>
+                        <h:outputLabel value="Operacion" for="operacion"/>
+                        <p:selectOneMenu value="#{calculadoraController.operacion}" id="operacion" required="true" validatorMessage="Debe seleccionar una operacion">
+                            <f:selectItem itemLabel="Seleccione.." itemValue="null"/>
+                            <f:selectItems value="#{calculadoraController.listaOperaciones}" var="lista" itemValue="#{lista.idoperacion}" itemLabel="#{lista.nombre}"/>                    
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Calcular" action="#{calculadoraController.calcularOperacion}" update="resultado, growl"/> 
+                    </f:facet>
+                </p:panel>
+            </div>
+            <br></br>
+            <div align="center">
+                <p:panel header="Resultado" style="width:650px;">
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Resultado"/>
+                        <p:inputText id="resultado" value="#{calculadoraController.total}" readonly="true"/>
+                    </h:panelGrid>
+                </p:panel> 
+            </div>
+        </h:form>        
     </h:body>
 </html>
 
