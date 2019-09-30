@@ -27,7 +27,7 @@ public abstract class AbstractFacade<T> {
     public void create(T entity) {
         try{
             getEntityManager().persist(entity);
-            getEntityManager().flush();
+            //getEntityManager().flush();
         }catch(ConstraintViolationException ex){
             throw new PersistenceException("No se puede persistir la entidad: " + entity + " error " +ex.getMessage());
         }catch(PersistenceException ex){
