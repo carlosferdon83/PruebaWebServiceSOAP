@@ -5,8 +5,8 @@
  */
 package com.soap.business.transacciones;
 
-import com.soap.model.dao.OperacionesFacadeLocal;
-import com.soap.model.dao.ResultadosFacadeLocal;
+import com.soap.dao.service.OperacionesFacadeLocal;
+import com.soap.dao.service.ResultadosFacadeLocal;
 import com.soap.model.entities.Operaciones;
 import com.soap.model.entities.Resultados;
 import java.util.ArrayList;

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.soap.model.dao;
+package com.soap.dao.service.impl;
 
-import com.soap.model.entities.Resultados;
+import com.soap.dao.service.OperacionesFacadeLocal;
+import com.soap.dao.crud.CrudService;
+import com.soap.model.entities.Operaciones;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +17,7 @@ import javax.persistence.PersistenceContext;
  * @author Carlos Fernando
  */
 @Stateless
-public class ResultadosFacade extends AbstractFacade<Resultados> implements ResultadosFacadeLocal {
+public class OperacionesFacade extends CrudService<Operaciones> implements OperacionesFacadeLocal {
 
     @PersistenceContext(unitName = "PruebasPU")
     private EntityManager em;
@@ -25,8 +27,8 @@ public class ResultadosFacade extends AbstractFacade<Resultados> implements Resu
         return em;
     }
 
-    public ResultadosFacade() {
-        super(Resultados.class);
+    public OperacionesFacade() {
+        super(Operaciones.class);
     }
     
 }

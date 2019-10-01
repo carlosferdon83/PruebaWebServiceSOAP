@@ -53,58 +53,75 @@ public class CalculadoraController implements Serializable {
         resultados = new Resultados();
         this.inicializarEndPoints();
     }
-
+    
+    /**
+     *
+     * @author Carlos Fernando
+     * @fecha 30/09/2019 - 9:37:26 p. m.
+     * @metodo calcularOperacion
+     * @descripcion valida el tipo de operacion para identificar el metodo a consumir en el web service
+     */
     public void calcularOperacion() {
         Calculator calculadora = new Calculator(url, qname);
         CalculatorSoap prueba = calculadora.getPort(CalculatorSoap.class);
         int obtenerOperacion = Integer.parseInt(operacion);
         switch (obtenerOperacion) {
-            case Constantes.SUMA: //Integer.parseInt(numero1), Integer.parseInt(numero2)
-                resultado = prueba.add(resultados.getOperando1(),resultados.getOperando2());
+            case Constantes.SUMA: 
+                resultado = prueba.add(resultados.getOperando1(), resultados.getOperando2());
                 total = String.valueOf(resultado);
                 this.guardarOperacion();
                 break;
             case Constantes.RESTA:
-                resultado = prueba.subtract(resultados.getOperando1(),resultados.getOperando2());
+                resultado = prueba.subtract(resultados.getOperando1(), resultados.getOperando2());
                 total = String.valueOf(resultado);
                 this.guardarOperacion();
                 break;
             case Constantes.MULTIPLICACION:
-                resultado = prueba.multiply(resultados.getOperando1(),resultados.getOperando2());
+                resultado = prueba.multiply(resultados.getOperando1(), resultados.getOperando2());
                 total = String.valueOf(resultado);
                 this.guardarOperacion();
                 break;
             case Constantes.DIVISION:
                 int comparacion = resultados.getOperando2().compareTo(Constantes.DIVISION_CERO);
-                if(comparacion == 0){
-                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL,"Atencion", "Division por cero"));
-                }else{
-                    resultado = prueba.divide(resultados.getOperando1(),resultados.getOperando2());
+                if (comparacion == 0) {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Atencion", "Division por cero"));
+                } else {
+                    resultado = prueba.divide(resultados.getOperando1(), resultados.getOperando2());
                     total = String.valueOf(resultado.intValue());
                     this.guardarOperacion();
-                }                
+                }
                 break;
-            default: break;
-
+            default:
+                break;
         }
-
     }
 
+    /**
+     *
+     * @author Carlos Fernando
+     * @fecha 30/09/2019 - 9:37:26 p. m.
+     * @metodo guardarOperacion
+     * @descripcion guarda las operaciones realizadas por el web service
+     */
     private void guardarOperacion() {
         try {
-            /*Resultados resultados = new Resultados();
-            resultados.setOperando1(Double.parseDouble(numero1));
-            resultados.setOperando2(Double.parseDouble(numero2));*/
             resultados.setResultado(resultado);
             resultados.setIdoperacion(new Operaciones(Integer.parseInt(operacion)));
             transacciones.insertarResultados(resultados);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Atencion", "La operacion ha sido registrada"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Atencion", "La operacion ha sido registrada"));
         } catch (Exception ex) {
             System.out.println("Un error ha ocurrido " + ex.getMessage());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Atencion", "Un error ha ocurrido"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atencion", "Un error ha ocurrido"));
         }
     }
 
+    /**
+	 * 
+	 * @author Carlos Fernando
+	 * @fecha 30/09/2019 - 9:37:26 p. m.
+	 * @metodo inicializarEndPoints
+	 * @descripcion inicializa los endpoints para el consumo del web service
+	 */
     public void inicializarEndPoints() {
         try {
             url = new URL(Constantes.URL_ENDPOINT_WSDL);
