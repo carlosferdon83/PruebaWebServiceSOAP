@@ -48,5 +48,16 @@ public class Transacciones implements TransaccionesLocal {
         }
     }
 
+    @Override
+    public List<Resultados> listaResultados() {
+        List<Resultados> listaResultados = new ArrayList<Resultados>();
+        try{
+            listaResultados = resultadosFacade.findAll();
+        }catch(EJBException ex){
+            System.out.println("Un error ha ocurrido "+ex.getMessage()+" en "+ex.getClass());
+        }
+        return listaResultados;
+    }
+
    
 }

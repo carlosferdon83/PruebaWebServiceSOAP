@@ -19,4 +19,5 @@ public interface TransaccionesLocal {
     
     public List<Operaciones> listaOperaciones();
     public void insertarResultados(Resultados resultados);
+    public List<Resultados> listaResultados();
 }

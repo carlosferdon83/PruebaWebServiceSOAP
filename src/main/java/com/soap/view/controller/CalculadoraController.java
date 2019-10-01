@@ -42,6 +42,7 @@ public class CalculadoraController implements Serializable {
     private URL url;
     private QName qname;
     private List<Operaciones> listaOperaciones;
+    private List<Resultados> listaResultados;
     private Resultados resultados;
     private Integer resultado;
 
@@ -50,8 +51,13 @@ public class CalculadoraController implements Serializable {
 
     @PostConstruct
     public void init() {
+        listarResultados();
         resultados = new Resultados();
         this.inicializarEndPoints();
+    }
+    
+    public void listarResultados(){
+        listaResultados = transacciones.listaResultados();
     }
     
     /**
@@ -109,6 +115,7 @@ public class CalculadoraController implements Serializable {
             resultados.setIdoperacion(new Operaciones(Integer.parseInt(operacion)));
             transacciones.insertarResultados(resultados);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Atencion", "La operacion ha sido registrada"));
+            listarResultados();
         } catch (Exception ex) {
             System.out.println("Un error ha ocurrido " + ex.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Atencion", "Un error ha ocurrido"));
@@ -194,6 +201,14 @@ public class CalculadoraController implements Serializable {
 
     public void setResultados(Resultados resultados) {
         this.resultados = resultados;
+    }
+
+    public List<Resultados> getListaResultados() {
+        return listaResultados;
+    }
+
+    public void setListaResultados(List<Resultados> listaResultados) {
+        this.listaResultados = listaResultados;
     }
 
 }

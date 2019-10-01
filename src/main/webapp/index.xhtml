@@ -12,7 +12,7 @@
             <p:growl id="growl" showDetail="true"/>
             <br></br>
             <div align="center">
-                <p:panel header="Calculadora" style="width:650px;">
+                <p:panel header="Calculadora" style="width:650px; font-size: 12px;">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Primer Numero" for="numero1"/>
                         <p:inputText value="#{calculadoraController.resultados.operando1}" id="numero1" required="true" validatorMessage="Numero 1 requerido"/>
@@ -25,18 +25,43 @@
                         </p:selectOneMenu>
                     </h:panelGrid>
                     <f:facet name="footer">
-                        <p:commandButton value="Calcular" action="#{calculadoraController.calcularOperacion}" update="resultado, growl"/> 
+                        <p:commandButton value="Calcular" action="#{calculadoraController.calcularOperacion}" update="resultado, growl,tablaResultados"/> 
                     </f:facet>
                 </p:panel>
             </div>
             <br></br>
             <div align="center">
-                <p:panel header="Resultado" style="width:650px;">
+                <p:panel header="Resultado" style="width:650px; font-size: 12px;">
                     <h:panelGrid columns="2">
                         <h:outputLabel value="Resultado"/>
                         <p:inputText id="resultado" value="#{calculadoraController.total}" readonly="true"/>
                     </h:panelGrid>
                 </p:panel> 
+            </div>
+            <br></br>
+            <div align="center">
+                <p:panel header="Lista Resultados" style="width:850px; font-size: 12px;">
+                    <p:dataTable id="tablaResultados" value="#{calculadoraController.listaResultados}" var="lista" rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15">
+
+                        <p:column headerText="Numero 1">
+                            <h:outputText value="#{lista.operando1}" />
+                        </p:column>
+
+                        <p:column headerText="Numero 2">
+                            <h:outputText value="#{lista.operando2}" />
+                        </p:column>
+
+                        <p:column headerText="Operacion">
+                            <h:outputText value="#{lista.idoperacion.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="Resultado">
+                            <h:outputText value="#{lista.resultado}" />
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
             </div>
         </h:form>        
     </h:body>
